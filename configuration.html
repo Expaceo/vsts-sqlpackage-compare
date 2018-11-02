@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+</head>
+
+<body>
+    <div class="container" style="min-height: 175px;">
+        <div class="widget-configuration">
+            <fieldset>
+                <div class="dropdown">
+                    <label>Select build definition(s)</label>
+                    <div class="build-definition-container" />
+                </div>
+                <div class="checkbox" >
+                    <label for="exclude-pr">Exclude PR</label>
+                    <input type="checkbox" class="exclude-pr" id="exclude-pr" value="1"/>
+                </div>
+                <div class="dropdown">
+                    <label>Artifact Name</label>
+                    <div class="artifact-name-container" />
+                </div>
+                <div class="dropdown">
+                    <label>Report file name</label>
+                    <div class="report-name-container" />
+                    </div>
+            </fieldset>
+        </div>
+    </div>
+    <script src="lib/VSS.SDK.js"></script>
+    <script type="text/javascript">
+        VSS.init({
+            explicitNotifyLoaded: true,
+            usePlatformStyles: true,
+            usePlatformScripts: true,
+            setupModuleLoader: true
+        });
+        VSS.ready(function () {
+            VSS.require(["dist/DeployReportWidgetConfiguration"], function (configuration) { });
+        });
+    </script>
+</body>
+
+</html>

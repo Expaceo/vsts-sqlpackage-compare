@@ -1,0 +1,625 @@
+{
+    "id": "5be5c0c8-4b56-4591-b174-c0db838dc79b",
+    "name": "SQLPackageDiff",
+    "friendlyName": "SQLPackage Diff",
+    "description": "Use the SQLpackage tool to compare two databases",
+    "helpMarkDown": "",
+    "category": "Package",
+    "author": "Jeremie LOSCOS",
+    "version": {
+        "Major": 0,
+        "Minor": 3,
+        "Patch": 2
+    },
+    "demands": [
+        "sqlserver"
+    ],
+    "minimumAgentVersion": "1.91.0",
+    "groups": [
+        {
+            "name": "ObjectsToCompare",
+            "displayName": "Objects to compare",
+            "isExpanded": false
+        }
+    ],
+    "inputs": [
+        {
+            "name": "sqlPackage",
+            "type": "string",
+            "label": "Path to SqlPackage.exe",
+            "required": true,
+            "defaultValue": "C:\\Program Files\\Microsoft SQL Server\\140\\DAC\\bin\\SqlPackage.exe"
+        },
+        {
+            "name": "action",
+            "type": "pickList",
+            "label": "Action",
+            "required": true,
+            "defaultValue": "report",
+            "options": {
+                "report": "Deploy Report",
+                "script": "Script"
+            }
+        },
+        {
+            "name": "sourceType",
+            "type": "radio",
+            "label": "Source Type",
+            "required": true,
+            "defaultValue": "dacpac",
+            "options": {
+                "dacpac": "Dacpac",
+                "connectionString": "Connection String"
+            }        
+        },
+        {
+            "name": "sourceDacpac",
+            "type": "string",
+            "label": "Path to the source dacpac",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "sourceType = dacpac"
+        },
+        {
+            "name": "sourceConnectionString",
+            "type": "string",
+            "label": "Connection string to the source database",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "sourceType = connectionString"
+        },
+        {
+            "name": "targetType",
+            "type": "radio",
+            "label": "Target Type",
+            "required": true,
+            "defaultValue": "dacpac",
+            "options": {
+                "dacpac": "Dacpac",
+                "connectionString": "Connection String"
+            }        
+        },
+        {
+            "name": "targetDacpac",
+            "type": "string",
+            "label": "Path to the target dacpac",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "targetType = dacpac"
+        },
+        {
+            "name": "targetDatabaseName",
+            "type": "string",
+            "label": "name of the target database",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "targetType = dacpac"
+        },
+        {
+            "name": "targetConnectionString",
+            "type": "string",
+            "label": "Connection string to the target database",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "targetType = connectionString"
+        },
+        {
+            "name": "outputPath",
+            "type": "string",
+            "label": "output path of the generated file",
+            "defaultValue": "",
+            "required": true
+        },
+        {
+            "name": "dropObjectsNotInSource",
+            "type": "boolean",
+            "label": "drop objects not in source",
+            "defaultValue": true,
+            "required": false
+        },
+
+        {
+            "name": "Aggregates",
+            "type": "boolean",
+            "label": "Aggregates",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required": false
+        },
+        {
+            "name": "ApplicationRoles",
+            "type": "boolean",
+            "label": "ApplicationRoles",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Assemblies",
+            "type": "boolean",
+            "label": "Assemblies",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "AsymmetricKeys",
+            "type": "boolean",
+            "label": "AsymmetricKeys",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "BrokerPriorities",
+            "type": "boolean",
+            "label": "BrokerPriorities",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Certificates",
+            "type": "boolean",
+            "label": "Certificates",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ColumnEncryptionKeys",
+            "type": "boolean",
+            "label": "ColumnEncryptionKeys",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ColumnMasterKeys",
+            "type": "boolean",
+            "label": "ColumnMasterKeys",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Contracts",
+            "type": "boolean",
+            "label": "Contracts",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "DatabaseRoles",
+            "type": "boolean",
+            "label": "DatabaseRoles",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "DatabaseTriggers",
+            "type": "boolean",
+            "label": "DatabaseTriggers",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Defaults",
+            "type": "boolean",
+            "label": "Defaults",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ExtendedProperties",
+            "type": "boolean",
+            "label": "ExtendedProperties",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ExternalDataSources",
+            "type": "boolean",
+            "label": "ExternalDataSources",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ExternalFileFormats",
+            "type": "boolean",
+            "label": "ExternalFileFormats",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ExternalTables",
+            "type": "boolean",
+            "label": "ExternalTables",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Filegroups",
+            "type": "boolean",
+            "label": "Filegroups",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "FileTables",
+            "type": "boolean",
+            "label": "FileTables",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "FullTextCatalogs",
+            "type": "boolean",
+            "label": "FullTextCatalogs",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "FullTextStoplists",
+            "type": "boolean",
+            "label": "FullTextStoplists",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "MessageTypes",
+            "type": "boolean",
+            "label": "MessageTypes",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "PartitionFunctions",
+            "type": "boolean",
+            "label": "PartitionFunctions",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "PartitionSchemes",
+            "type": "boolean",
+            "label": "PartitionSchemes",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Permissions",
+            "type": "boolean",
+            "label": "Permissions",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Queues",
+            "type": "boolean",
+            "label": "Queues",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "RemoteServiceBindings",
+            "type": "boolean",
+            "label": "RemoteServiceBindings",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "RoleMembership",
+            "type": "boolean",
+            "label": "RoleMembership",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Rules",
+            "type": "boolean",
+            "label": "Rules",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ScalarValuedFunctions",
+            "type": "boolean",
+            "label": "ScalarValuedFunctions",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "SearchPropertyLists",
+            "type": "boolean",
+            "label": "SearchPropertyLists",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "SecurityPolicies",
+            "type": "boolean",
+            "label": "SecurityPolicies",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Sequences",
+            "type": "boolean",
+            "label": "Sequences",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Services",
+            "type": "boolean",
+            "label": "Services",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Signatures",
+            "type": "boolean",
+            "label": "Signatures",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "StoredProcedures",
+            "type": "boolean",
+            "label": "StoredProcedures",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "SymmetricKeys",
+            "type": "boolean",
+            "label": "SymmetricKeys",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Synonyms",
+            "type": "boolean",
+            "label": "Synonyms",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Tables",
+            "type": "boolean",
+            "label": "Tables",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "TableValuedFunctions",
+            "type": "boolean",
+            "label": "TableValuedFunctions",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "UserDefinedDataTypes",
+            "type": "boolean",
+            "label": "UserDefinedDataTypes",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "UserDefinedTableTypes",
+            "type": "boolean",
+            "label": "UserDefinedTableTypes",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ClrUserDefinedTypes",
+            "type": "boolean",
+            "label": "ClrUserDefinedTypes",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Users",
+            "type": "boolean",
+            "label": "Users",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Views",
+            "type": "boolean",
+            "label": "Views",
+            "defaultValue": true,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "XmlSchemaCollections",
+            "type": "boolean",
+            "label": "XmlSchemaCollections",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Audits",
+            "type": "boolean",
+            "label": "Audits",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Credentials",
+            "type": "boolean",
+            "label": "Credentials",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "CryptographicProviders",
+            "type": "boolean",
+            "label": "CryptographicProviders",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "DatabaseAuditSpecifications",
+            "type": "boolean",
+            "label": "DatabaseAuditSpecifications",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "DatabaseScopedCredentials",
+            "type": "boolean",
+            "label": "DatabaseScopedCredentials",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Endpoints",
+            "type": "boolean",
+            "label": "Endpoints",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ErrorMessages",
+            "type": "boolean",
+            "label": "ErrorMessages",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "EventNotifications",
+            "type": "boolean",
+            "label": "EventNotifications",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "EventSessions",
+            "type": "boolean",
+            "label": "EventSessions",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "LinkedServerLogins",
+            "type": "boolean",
+            "label": "LinkedServerLogins",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "LinkedServers",
+            "type": "boolean",
+            "label": "LinkedServers",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Logins",
+            "type": "boolean",
+            "label": "Logins",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "Routes",
+            "type": "boolean",
+            "label": "Routes",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ServerAuditSpecifications",
+            "type": "boolean",
+            "label": "ServerAuditSpecifications",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ServerRoleMembership",
+            "type": "boolean",
+            "label": "ServerRoleMembership",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ServerRoles",
+            "type": "boolean",
+            "label": "ServerRoles",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        },
+        {
+            "name": "ServerTriggers",
+            "type": "boolean",
+            "label": "ServerTriggers",
+            "defaultValue": false,
+            "groupName": "ObjectsToCompare",
+            "required":false
+        }
+    ],
+    "instanceNameFormat": "SQL Package",
+    "execution": {
+        "Node": {
+            "target": "index.js",
+            "argumentFormat": ""
+        }
+    }
+}

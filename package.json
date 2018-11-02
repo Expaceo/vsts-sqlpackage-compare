@@ -1,0 +1,30 @@
+{
+  "name": "sqlpackage-deployreport-extension",
+  "version": "1.0.0",
+  "description": "SQLPackage DeployReport",
+  "scripts": {
+    "build:widget": "webpack --progress --colors --config webpack.config.js -p",
+    "build:task": "webpack --progress --colors --config SQLPackageDiff/webpack.config.js -p",
+    "build": "npm run build:widget && npm run build:task",
+    "package": "tfx extension create  --rev-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://JeremieLoscos@dev.azure.com/JeremieLoscos/VSTSExtensions/_git/VSTSExtensions"
+  },
+  "author": "Jeremie LOSCOS",
+  "dependencies": {
+    "azure-pipelines-task-lib": "^2.7.0",
+    "jszip": "^3.1.5",
+    "npm": "^6.4.1",
+    "vss-web-extension-sdk": "^5.141.0"
+  },
+  "devDependencies": {
+    "@types/jszip": "^3.1.4",
+    "tfx-cli": "^0.6.3",
+    "ts-loader": "^5.2.2",
+    "typescript": "^3.1.3",
+    "webpack": "^4.21.0",
+    "webpack-cli": "^3.1.2"
+  }
+}

@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"lib": [
+			"dom",
+			"es2015.promise",
+			"es5"
+		],
+		"module": "commonjs",
+		"moduleResolution": "node",
+        "target": "es5",
+		"sourceMap": true,
+		"types": [
+			"vss-web-extension-sdk"
+		]
+    },
+    "files":[
+        "scripts/DeployReportWidget.ts", "scripts/DeployReportWidgetConfiguration.ts"
+    ],
+	"exclude": [
+		"node_modules",
+		"**/*.spec.ts"
+	]
+}

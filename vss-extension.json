@@ -1,0 +1,136 @@
+{
+    "manifestVersion": 1,
+    "id": "sqlpackage-deployreport-widget",
+    "publisher": "Expaceo",
+    "version": "1.0.53",
+    "name": "SQLPackage Compare",
+    "description": "Use SQLPackage to compare two databases",
+    "icons": {
+        "default": "images/logo.png"
+    },
+    "content": {
+        "details": {
+            "path": "README.md"
+        }
+    },
+    "public": false,
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "tags": [
+        "Board",
+        "Dashboard Widgets"
+      ],
+    "categories": [
+        "Build and release"
+    ],
+    "contributions": [
+        {
+            "id": "deployreport-widget",
+            "type": "ms.vss-dashboards-web.widget",
+            "targets": [
+                "ms.vss-dashboards-web.widget-catalog",
+                ".deployreport-widget-configuration"
+            ],
+            "properties": {
+                "name": "DeployReport Widget",
+                "description": "Display SQLPackage DeployReport",
+                "uri": "widget.html",
+                "catalogIconUrl:": "images/logo.png",
+                "previewImageUrl": "images/logo.png",
+                "supportedSizes": [
+                    {
+                        "rowSpan": 2,
+                        "columnSpan": 3
+                    },
+                    {
+                        "rowSpan": 2,
+                        "columnSpan": 4
+                    },
+                    {
+                        "rowSpan": 2,
+                        "columnSpan": 5
+                    },
+                    {
+                        "rowSpan": 3,
+                        "columnSpan": 3
+                    },
+                    {
+                        "rowSpan": 3,
+                        "columnSpan": 4
+                    },
+                    {
+                        "rowSpan": 3,
+                        "columnSpan": 5
+                    },
+                    {
+                        "rowSpan": 4,
+                        "columnSpan": 3
+                    },
+                    {
+                        "rowSpan": 4,
+                        "columnSpan": 4
+                    },
+                    {
+                        "rowSpan": 4,
+                        "columnSpan": 5
+                    }
+                ],
+                "supportedScopes": ["project_team"]
+            }
+        },
+        {
+            "id": "deployreport-widget-configuration",
+            "type": "ms.vss-dashboards-web.widget-configuration",
+            "targets": [
+                "ms.vss-dashboards-web.widget-configuration"
+            ],
+            "properties": {
+                "name": "DeployReport Configuration",
+                "description": "Configure DeployReport widget.",
+                "uri": "configuration.html"
+            }
+        },
+        {
+            "id": "sqlpackage-diff-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "SQLPackageDiff"
+            }
+        }
+    ],
+    "files": [
+        {
+            "path": "images",
+            "addressable": true
+        },
+        {
+            "path": "widget.html",
+            "addressable": true
+        },
+        {
+            "path": "configuration.html",
+            "addressable": true
+        },
+        {
+            "path": "dist",
+            "addressable": true
+        },
+        {
+            "path": "node_modules/vss-web-extension-sdk/lib",
+            "addressable": true,
+            "packagePath": "lib"
+        },
+        {
+            "path": "SQLPackageDiff"
+        }
+    ],
+    "scopes": [
+        "vso.build"
+    ]
+}

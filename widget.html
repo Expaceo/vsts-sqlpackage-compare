@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>          
+        <script src="lib/VSS.SDK.js"></script>
+        <script type="text/javascript">
+            VSS.init({                        
+                explicitNotifyLoaded: true,
+                usePlatformStyles: true,
+                usePlatformScripts: true,
+                setupModuleLoader: true
+            });
+            VSS.ready(function () {
+                VSS.require("dist/DeployReportWidget", function (a) { });
+            });
+        </script>
+        <style>
+            
+            .container {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+            .widget h2.title, .alert-container {
+                flex-grow: 0;
+                overflow: unset;
+            }
+            .grid-container {
+                flex: 1;
+                height: 50%;
+            }
+            .alert-container li {
+                color:red;
+            }
+            .grid-header {
+                border-bottom: 1px solid rgba(200, 200, 200, 1);
+            }
+            .grid-header .grid-header-column > .title {
+                top: 0px;
+                font-size: 14px;
+            }
+            .grid-container .grid .grid-canvas {
+                overflow-x: hidden;
+            }
+            .grid-container .grid-row[aria-expanded] {
+                background-color: rgb(222, 236, 249);
+                background-color: rgba(var(--palette-primary-tint-30, 222, 236, 249), 1 );
+            }
+        </style>
+    </head>
+    <body>
+        <div class="widget">
+            <div class="container">
+                <h2 class="title">
+                    <div class="inner-title">SQL DeployReport</div>
+                    <div class="subtitle"></div>
+                </h2>
+                <div class="alert-container">
+                </div>
+                <div class="grid-container"></div>
+            </div>
+        </div>
+    </body>
+</html>
