@@ -11,6 +11,9 @@
     "content": {
         "details": {
             "path": "README.md"
+        },
+        "license": {
+            "path": "LICENSE"
         }
     },
     "public": false,
@@ -23,6 +26,18 @@
         "Board",
         "Dashboard Widgets"
       ],
+      "links": {
+        "license": {
+            "uri": "https://github.com/Expaceo/vsts-sqlpackage-compare/blob/master/LICENSE"
+        },
+        "support": {
+            "uri": "https://github.com/Expaceo/vsts-sqlpackage-compare/issues"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/Expaceo/vsts-sqlpackage-compare"
+    },
     "categories": [
         "Build and release"
     ],
