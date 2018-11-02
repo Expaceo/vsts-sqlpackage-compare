@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://JeremieLoscos@dev.azure.com/JeremieLoscos/VSTSExtensions/_git/VSTSExtensions"
+    "url": "https://github.com/Expaceo/vsts-sqlpackage-compare"
   },
   "author": "Jeremie LOSCOS",
   "dependencies": {
